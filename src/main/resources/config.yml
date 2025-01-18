@@ -1,0 +1,54 @@
+# Choose time for start match
+delay:
+  # Delay before a match is start in seconds.
+  # (waiting-delay * players amount) / max players in a arena
+  waiting-delay: 30
+
+  # Max round time in seconds
+  # (this * current-players) / players-in-start
+  # Example: (5 * 600) / 10
+  max-round-time: 600
+
+arena:
+  # Don't play on selected world, because we just load the world to new world.
+  preload-worlds-amount: 2
+
+match:
+  # Where a player should be teleported after death:
+  # if set to false, we teleport player to his last location.
+  teleport-to-spawn: false
+
+  game:
+    # What gamemode should we set when teleport a player into a game?
+    gamemode: SURVIVAL
+    max-build-y: 255
+    max-border-size: 300
+    # Should wwe allow player destroy blocks in a map.
+    allow-destroy-blocks: true
+
+  waiting:
+    teleport-to-map: false
+    # Remove player from queue if he changes world.
+    remove-if-change-world: true
+
+  items:
+    # Give item to player every n seconds
+    delay: 3
+
+    # Here you can select current list mode
+    # If u select incorrect list mode, or remove this section, we starts to be use blacklist.
+    # White list - players get items from list down
+    # Black list - players get all minecraft items, but items from section down will be ignored.
+    mode: whitelist
+
+    items:
+      - dirt
+
+# Storage is need for placeholders work.
+# If you disable this, you can slightly increase performance.
+storage:
+  enable: true
+
+  # s(econds), m(inutes), h(ours), d(ays), mo(nths)
+  # if you dont select unit, this value will be return with milliseconds. 1 millisecond = 0.001 second
+  remove-data-after: 10d

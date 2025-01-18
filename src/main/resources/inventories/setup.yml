@@ -1,0 +1,63 @@
+name: "&eSetup"
+slots: 45
+
+items:
+  set-arena-name:
+    name: Click here for set arena name
+    material: REDSTONE_BLOCK
+    slot: 10
+    lore:
+      - "Name: $name"
+      - ""
+      - "Write arena name."
+
+  set-player-per-team:
+    name: "Select players amount in teams"
+    lore:
+      - "Current teams:"
+      - "$ppt"
+    material: ZOMBIE_HEAD
+    slot: 12
+
+  set-max-players:
+    name: "Value: $max_players"
+    material: SKELETON_SKULL
+    slot: 14
+    lore:
+      - "Select max player amount"
+      - ""
+      - "Left click increase value"
+      - "Right click decrease value"
+
+  set-min-players:
+    name: "Value: $min_players"
+    material: WITHER_SKELETON_SKULL
+    slot: 16
+    lore:
+      - "Select min player amount"
+      - ""
+      - "Left click increase value"
+      - "Right click decrease value"
+
+  select-spawn-pos:
+    name: "Click to select spawn pos"
+    slot: 18
+    material: STICK
+
+  set-center-of-map:
+    name: "Set center of map"
+    material: STICK
+    slot: 33
+
+  delete:
+    name: "Delete this arena"
+    material: REDSTONE
+    slot: 35
+
+  save:
+    name: "Click for save to file"
+    slot: 44
+    material: STICK
+
+
+

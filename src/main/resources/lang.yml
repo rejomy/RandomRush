@@ -1,0 +1,54 @@
+setup:
+  set-name:
+    empty: "Arena name cannot be empty."
+    success: "You success set name $name for the arena."
+    should-write: "You should write arena name in chat. You can use english alphabet and numbers."
+
+  set-position:
+    success: "Position $x $y $z has been added for $arena!"
+    how: "When you do left click in your mouse, your legs location will be saved as position."
+  set-center:
+    success: "Center $x $y $z has been set for $arena!"
+
+  save:
+    incorrect-players: "You should select min and max values which are greater than zero. $min $max"
+    incorrect-name: "You should write arena name."
+    incorrect-positions: "You should set number of positions equals max players."
+    incorrect-world-name: "You must specify the world to be used."
+    incorrect-center: "You should set center of arena."
+    name-exist: "The name of arena already exist. Please write any name. Arena name=$name"
+    success: "Arena $arena was success saved to file! :)"
+
+waiting:
+  is-full: "You cant connect to the game, because the match is full!"
+
+match:
+  max-build-y: "You cant place blocks here."
+  join: "You joined to $name match! $players/$max"
+  join-already-is-in-match: "You already in the game, write /rr leave and try to rejoin."
+
+  die: "You are die :("
+  remove: "You has been removed from $name"
+  leave: "You leave from $name"
+  leave-not-in-match: "You are not currently in a match."
+
+command:
+  available-commands:
+    - "&eAvailable commands: &f/rr (command)"
+    - "&7 setup &8- (only player)  &fCreate an arena."
+    - "&7 setup arenaName &8- (only player) &fEdit current arena."
+    - "&7 leave &8- (only player) &fleave from current match"
+    - "&7 spawn &8- (only player) &fset spawn location"
+    - "&7 list &8- &flist of all arenas names"
+    - "&7 menu &8- &favailable arenas for playing"
+    - ""
+    - "&cCoded by Rejomy"
+
+# n: - is percentage before match is starts
+start-message:
+  2: "Game is starting after $time secs"
+  10: "Game is starting after $time secs"
+  30: "Game is starting after $time secs"
+  60: "Game is starting after $time secs"
+  90: "Game is starting after $time secs"
+  100: "Game is starting after $time secs"

@@ -1,0 +1,24 @@
+name: RandomRush
+version: 1.0
+author: Rejomy
+
+commands:
+  randomrush:
+    aliases:
+      - rr
+      - randomr
+      - rrush
+      - randrush
+      - randr
+
+softdepend:
+  - multiverse-core
+  - multiworld
+  - myworld
+  - placeholderapi
+
+main: me.rejomy.randomrush.RandomRush
+api-version: 1.13
+
+
+

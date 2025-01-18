@@ -1,0 +1,21 @@
+name: "Create new team"
+slots: 45
+
+# Dont remove select-amount, if you do it, you can break the arena setup part.
+items:
+  select-amount:
+    slot: 13
+    name: "Select player per team"
+    lore:
+      - "Current: $ppt"
+      - ""
+      - "Right click to add"
+      - "Left click to remove"
+    material: REDSTONE_BLOCK
+
+  return:
+    slot: 27
+    name: "Return to setup editor"
+    lore:
+      - "Return to setup editor"
+    material: REDSTONE_BLOCK

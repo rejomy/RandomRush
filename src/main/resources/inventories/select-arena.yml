@@ -1,0 +1,43 @@
+name: "&eChoose your favorite arena:"
+slots: 45
+
+items:
+  fast-start:
+    name: "Fast start"
+    lore:
+      - "Click here for join"
+      - "to random arena"
+    slot: 17
+    material: BLAZE_POWDER
+    commands:
+      - "rr join $player"
+
+  duo:
+    name: "Duo game"
+    lore:
+      - "Click here for play"
+      - "to duo mode"
+    slot: 23
+    material: STONE
+    commands:
+      - "rr join $player 2"
+
+  solo:
+    name: "Solo game"
+    lore:
+      - "Click here for play"
+      - "to solo mode"
+    slot: 25
+    material: COBBLESTONE
+    commands:
+      - "rr join $player 1"
+
+  close:
+    name: "Close the menu"
+    slot: 44
+    material: STONE_BUTTON
+    commands:
+      - "[close]"
+
+
+

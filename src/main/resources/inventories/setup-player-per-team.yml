@@ -1,0 +1,25 @@
+name: "Select available teams"
+slots: 45
+
+# Dont remove default items from here,
+# you break some function or arena creation part.
+items:
+  add-team:
+    name: "Add team"
+    lore:
+      - "Click here for create a new team"
+    material: STICK
+    slot: 44
+
+  return:
+    name: "Return to setup editor"
+    lore:
+      - "Return to setup editor"
+    material: REDSTONE_BLOCK
+    slot: 27
+
+  abstract-team:
+    name: "$ppt"
+    lore:
+      - "Click here for modify"
+    material: GLOWSTONE
