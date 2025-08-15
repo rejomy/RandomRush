@@ -5,17 +5,16 @@ import me.rejomy.randomrush.command.impl.RandomRushCommand;
 import me.rejomy.randomrush.data.PlayerData;
 import me.rejomy.randomrush.data.database.DataBase;
 import me.rejomy.randomrush.data.database.SQLite;
-import me.rejomy.randomrush.listener.BlockListener;
-import me.rejomy.randomrush.listener.ConnectionListener;
-import me.rejomy.randomrush.listener.DamageListener;
-import me.rejomy.randomrush.listener.DeathListener;
+import me.rejomy.randomrush.listener.*;
 import me.rejomy.randomrush.manager.*;
+import me.rejomy.randomrush.task.impl.WaitingTask;
 import me.rejomy.randomrush.util.expansion.Expansion;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.sql.SQLException;
+import java.util.Arrays;
 
 @Getter
 public enum RandomRushAPI {
@@ -30,6 +29,10 @@ public enum RandomRushAPI {
     DataManager dataManager = new DataManager();
 
     void load(JavaPlugin plugin) {
+        this.plugin = plugin;
+    }
+
+    void start(JavaPlugin plugin) {
         this.plugin = plugin;
 
         worldManager = new WorldManager();
@@ -47,19 +50,19 @@ public enum RandomRushAPI {
         if (RandomRushAPI.INSTANCE.getConfigManager().getConfig().isStorage()) {
             dataBase = new SQLite();
         }
-    }
-
-    void start(JavaPlugin plugin) {
-        this.plugin = plugin;
 
         // Create all matches from arenas after load worlds, else we can get "world = source" is null.
         matchManager.load();
 
         // Register bukkit event listeners
-        Bukkit.getPluginManager().registerEvents(new ConnectionListener(), getPlugin());
-        Bukkit.getPluginManager().registerEvents(new BlockListener(), getPlugin());
-        Bukkit.getPluginManager().registerEvents(new DeathListener(), getPlugin());
-        Bukkit.getPluginManager().registerEvents(new DamageListener(), getPlugin());
+        Arrays.asList(
+                new ConnectionListener(),
+                new BlockListener(),
+                new DeathListener(),
+                new DamageListener(),
+                new TeleportListener()
+        ).forEach(listener ->
+                Bukkit.getPluginManager().registerEvents(listener, getPlugin()));
 
         // Register commands
         getPlugin().getCommand("randomrush").setExecutor(new RandomRushCommand());

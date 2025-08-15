@@ -42,6 +42,7 @@ public class WaitingTask extends Task {
 
         // Start the game if starting delay equals zero.
         if (startingDelay == 0) {
+            match.setStatus(Match.Status.PLAYING);
             GameTask gameTask = new GameTask(match);
             gameTask.run();
 

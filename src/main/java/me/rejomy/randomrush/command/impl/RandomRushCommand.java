@@ -5,6 +5,7 @@ import me.rejomy.randomrush.arena.Arena;
 import me.rejomy.randomrush.command.Command;
 import me.rejomy.randomrush.data.PlayerData;
 import me.rejomy.randomrush.match.MatchPlayer;
+import me.rejomy.randomrush.util.StringUtil;
 import me.rejomy.randomrush.util.Utils;
 import me.rejomy.randomrush.util.inventory.impl.SelectArenaInventory;
 import me.rejomy.randomrush.util.inventory.impl.SetupInventory;
@@ -115,7 +116,7 @@ public class RandomRushCommand extends Command {
                 MatchPlayer matchPlayer = RandomRushAPI.INSTANCE.getMatchManager().getMatchPlayer((Player) sender);
 
                 if (matchPlayer != null) {
-                    matchPlayer.getMatch().removePlayer(matchPlayer);
+                    matchPlayer.getMatch().removePlayer(matchPlayer, true);
                     Utils.sendMessage(sender, RandomRushAPI.INSTANCE.getConfigManager().getLang().getMatchLeave(), "name", matchPlayer.getMatch().getArena().name);
                 } else Utils.sendMessage(sender, RandomRushAPI.INSTANCE.getConfigManager().getLang().getMatchLeaveNotInMatch());
             }
@@ -137,15 +138,24 @@ public class RandomRushCommand extends Command {
                     }
 
                     YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
+                    String world = location.getWorld().getName();
+                    double x = location.getX(),
+                            y = location.getY(),
+                            z = location.getZ(),
+                            yaw = location.getYaw(),
+                            pitch = location.getPitch();
 
-                    config.set("world", location.getWorld().getName());
-                    config.set("x", location.getX());
-                    config.set("y", location.getY());
-                    config.set("z", location.getZ());
-                    config.set("yaw", location.getYaw());
-                    config.set("pitch", location.getPitch());
+                    config.set("world", world);
+                    config.set("x", x);
+                    config.set("y", y);
+                    config.set("z", z);
+                    config.set("yaw", yaw);
+                    config.set("pitch", pitch);
 
                     config.save(file);
+                    sender.sendMessage(StringUtil.apply(lang.getSpawn(), "world", world, "x", x, "y", y, "z", z,
+                            "yaw", yaw, "pitch", pitch));
+                    RandomRushAPI.INSTANCE.getMatchManager().setSpawnLocation(location);
                 } catch (IOException exception) {
                     exception.printStackTrace();
                 }

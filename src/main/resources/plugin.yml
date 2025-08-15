@@ -1,6 +1,7 @@
 name: RandomRush
 version: 1.0
 author: Rejomy
+load: POSTWORLD
 
 commands:
   randomrush:

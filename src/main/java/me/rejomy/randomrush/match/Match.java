@@ -32,7 +32,7 @@ public class Match {
 
     public void end() {
         new ArrayList<>(getPlayers()).forEach(matchPlayer -> {
-            removePlayer(matchPlayer);
+            removePlayer(matchPlayer, true);
             Utils.sendMessage(matchPlayer.getPlayer(), RandomRushAPI.INSTANCE.getConfigManager().getLang().getMatchRemove(), "name", arena.name);
         });
 
@@ -43,7 +43,11 @@ public class Match {
         RandomRushAPI.INSTANCE.getMatchManager().delete(this);
     }
 
-    public void removePlayer(MatchPlayer matchPlayer) {
+    public void removePlayer(MatchPlayer matchPlayer, boolean teleport) {
+        // By default we are not applying effects, inventory items and teleports
+        // if teleport to map in waiting status is false.
+        boolean isTeleportedToMap = !(getStatus() == Status.WAITING &&
+                        !RandomRushAPI.INSTANCE.getConfigManager().getConfig().isTeleportToMap());
         Player player = matchPlayer.getPlayer();
 
         getPlayers().remove(matchPlayer);
@@ -58,16 +62,22 @@ public class Match {
             player.setAllowFlight(false);
         }
 
-        player.setHealth(player.getMaxHealth());
-        player.setFoodLevel(20);
-        player.setLevel(0);
-        player.getInventory().clear();
+        if (isTeleportedToMap) {
+            player.setHealth(player.getMaxHealth());
+            player.setFoodLevel(20);
+            player.setLevel(0);
+            player.getInventory().clear();
+        }
 
         for (PotionEffect potionEffect : player.getActivePotionEffects()) {
             player.removePotionEffect(potionEffect.getType());
         }
 
-        player.teleport(RandomRushAPI.INSTANCE.getConfigManager().getConfig().isTeleportToSpawn()? RandomRushAPI.INSTANCE.getMatchManager().getSpawnLocation() : matchPlayer.getCatchedPlayerLocation());
+        if (isTeleportedToMap && teleport)
+            player.teleport(
+                    RandomRushAPI.INSTANCE.getConfigManager().getConfig().isTeleportToSpawn() ?
+                            RandomRushAPI.INSTANCE.getMatchManager().getSpawnLocation() :
+                            matchPlayer.getCatchedPlayerLocation());
     }
 
     public void updateTime(int newTime) {

@@ -23,7 +23,7 @@ public class DeathListener implements Listener {
         Match match = matchPlayer.getMatch();
 
         Utils.sendMessage(player, RandomRushAPI.INSTANCE.getConfigManager().getLang().getMatchDie());
-        match.removePlayer(matchPlayer);
+        match.removePlayer(matchPlayer, true);
     }
 
 }

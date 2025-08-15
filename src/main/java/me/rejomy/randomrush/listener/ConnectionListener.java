@@ -23,9 +23,7 @@ public class ConnectionListener implements Listener {
         MatchPlayer matchPlayer = RandomRushAPI.INSTANCE.getMatchManager().getMatchPlayer(player);
 
         if (matchPlayer != null) {
-            Match match = matchPlayer.getMatch();
-
-            match.removePlayer(matchPlayer);
+            matchPlayer.getMatch().removePlayer(matchPlayer, false);
         }
 
         RandomRushAPI.INSTANCE.getDataManager().remove(player);

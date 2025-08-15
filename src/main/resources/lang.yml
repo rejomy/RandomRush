@@ -33,6 +33,7 @@ match:
   leave-not-in-match: "You are not currently in a match."
 
 command:
+  spawn: "Spawn was success set to $world $x $y $z $yaw $pitch"
   available-commands:
     - "&eAvailable commands: &f/rr (command)"
     - "&7 setup &8- (only player)  &fCreate an arena."

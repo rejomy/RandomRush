@@ -34,6 +34,8 @@ public class Lang extends YamlConfig {
     String matchRemove;
     String matchDie;
 
+    String spawn;
+
     HashMap<Byte, String> startMessages = new HashMap<>();
 
     List<String> commandAvailableCommands;
@@ -70,6 +72,7 @@ public class Lang extends YamlConfig {
         matchRemove = getStringElse("match.remove", "You has been removed from $name");
         matchDie = getStringElse("match.die", "You are die :(");
 
+        spawn = getStringElse("command.spawn", "Spawn was success set to $world $x $y $z $yaw $pitch");
         commandAvailableCommands = getStringListElse("command.available-commands", new ArrayList<>());
 
         for (byte percent : config.getConfigurationSection("start-message").getKeys(false).stream().map(Byte::parseByte).toList()) {

@@ -38,7 +38,13 @@ public class ConfigManager implements Loadable {
 
         if (file.exists()) {
             YamlConfiguration config = YamlConfiguration.loadConfiguration(file);
-            RandomRushAPI.INSTANCE.getMatchManager().setSpawnLocation(new Location(Bukkit.getWorld(config.getString("world")), config.getDouble("x"), config.getDouble("y"), config.getDouble("z"), (float) config.getDouble("yaw"), (float) config.getDouble("pitch")));
+            RandomRushAPI.INSTANCE.getMatchManager().setSpawnLocation(
+                    new Location(Bukkit.getWorld(config.getString("world")),
+                            config.getDouble("x"),
+                            config.getDouble("y"),
+                            config.getDouble("z"),
+                            (float) config.getDouble("yaw"),
+                            (float) config.getDouble("pitch")));
         }
 
         if (!arenasDirectory.exists()) {
