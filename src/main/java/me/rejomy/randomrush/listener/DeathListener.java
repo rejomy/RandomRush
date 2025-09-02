@@ -24,6 +24,8 @@ public class DeathListener implements Listener {
 
         Utils.sendMessage(player, RandomRushAPI.INSTANCE.getConfigManager().getLang().getMatchDie());
         match.removePlayer(matchPlayer, true);
+        // Remove the death message
+        event.setDeathMessage(null);
     }
 
 }
