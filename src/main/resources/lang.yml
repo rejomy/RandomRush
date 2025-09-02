@@ -24,7 +24,7 @@ waiting:
 
 match:
   max-build-y: "You cant place blocks here."
-  join: "You joined to $name match! $players/$max"
+  join: "$player joined to the $name! $players/$max"
   join-already-is-in-match: "You already in the game, write /rr leave and try to rejoin."
 
   die: "You are die :("
