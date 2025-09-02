@@ -76,9 +76,9 @@ public class MatchManager implements UnLoadable, Loadable {
         match.getPlayers().forEach(someMatchPlayer -> {
             Utils.sendMessage(someMatchPlayer.getPlayer(),
                     RandomRushAPI.INSTANCE.getConfigManager().getLang().getMatchJoin(),
+                    "players", playersSize + 1,
                     "player", player.getName(),
                     "name", match.getArena().name,
-                    "players", playersSize + 1,
                     "max", match.getArena().maxPlayers);
 
         });
