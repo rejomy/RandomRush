@@ -17,13 +17,8 @@ public class GameTask extends Task {
     private final static int MATCH_DELAY = RandomRushAPI.INSTANCE.getConfigManager().getConfig().getMaxRoundTime();
     private final static int MAX_BORDER_SIZE = RandomRushAPI.INSTANCE.getConfigManager().getConfig().getMaxBorderSize();
 
-    int delay = MATCH_DELAY;
-    World world = match.getWorld();
-
-    public GameTask(Match match) {
-        super(match);
-        setBukkitRunnable(bukkitRunnable);
-    }
+    private int delay = MATCH_DELAY;
+    private final World world = match.getWorld();
 
     Runnable bukkitRunnable = () -> {
         delay--;
@@ -33,14 +28,17 @@ public class GameTask extends Task {
 
             if (RandomRushAPI.INSTANCE.getConfigManager().getConfig().isWhiteListMode()) {
                 items = RandomRushAPI.INSTANCE.getConfigManager().getConfig().getListItems();
-            }
-            else {
-                items = Arrays.stream(XMaterial.values()).collect(Collectors.toList());
+            } else {
+                items = Arrays.stream(XMaterial.values())
+                        // Skip non-existing materials in this version.
+                        .filter(xMaterial -> xMaterial.parseItem() != null)
+                        .collect(Collectors.toList());
                 items.removeAll(RandomRushAPI.INSTANCE.getConfigManager().getConfig().getListItems());
             }
 
             for (MatchPlayer player : match.getPlayers()) {
-                player.getPlayer().getInventory().addItem(items.get(new Random().nextInt(items.size())).parseItem());
+                player.getPlayer().getInventory().addItem(
+                        items.get(new Random().nextInt(items.size())).parseItem());
             }
         }
 
@@ -51,7 +49,11 @@ public class GameTask extends Task {
         }
 
         match.updateTime(delay);
-
         world.getWorldBorder().setSize((double) (MAX_BORDER_SIZE * delay) / MATCH_DELAY);
     };
+
+    public GameTask(Match match) {
+        super(match);
+        setBukkitRunnable(bukkitRunnable);
+    }
 }
