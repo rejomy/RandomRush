@@ -15,7 +15,7 @@ commands:
 softdepend:
   - multiverse-core
   - multiworld
-  - myworld
+  - My_Worlds
   - placeholderapi
 
 main: me.rejomy.randomrush.RandomRush
