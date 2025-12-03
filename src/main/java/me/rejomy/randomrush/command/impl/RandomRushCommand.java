@@ -20,6 +20,7 @@ import org.bukkit.entity.Player;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.stream.Collectors;
 
 public class RandomRushCommand extends Command {
@@ -86,24 +87,21 @@ public class RandomRushCommand extends Command {
             }
 
             case "join" -> {
-                if (args.length == 2) {
-                    Player player = Bukkit.getPlayer(args[1]);
+                Player player = Bukkit.getPlayer(args[1]);
 
-                    RandomRushAPI.INSTANCE.getMatchManager().addPlayer(player);
-                } else if (args.length == 3) {
-                    Player player = Bukkit.getPlayer(args[1]);
-                    int playerPerTeam = Integer.parseInt(args[2]);
+                if (RandomRushAPI.INSTANCE.getMatchManager().isInMatch(player)) {
+                    Utils.sendMessage(player, RandomRushAPI.INSTANCE.getConfigManager().getLang().getMatchJoinAlreadyInTheGame());
+                    return;
+                }
 
-                    if (RandomRushAPI.INSTANCE.getMatchManager().isInMatch(player)) {
-                        Utils.sendMessage(player, RandomRushAPI.INSTANCE.getConfigManager().getLang().getMatchJoinAlreadyInTheGame());
-                        return;
-                    }
+                Integer playersPerTeam = args.length == 3 ? Integer.parseInt(args[2]) : null;
+                boolean successAdded = RandomRushAPI.INSTANCE.getMatchManager().addPlayer(player,
+                        playersPerTeam != null ?
+                        (match) -> match.getPlayersPerTeam() == playersPerTeam : null);
 
-                    if (!RandomRushAPI.INSTANCE.getMatchManager().addPlayer(player,
-                            (match) -> match.getPlayersPerTeam() == playerPerTeam)) {
-                        RandomRushAPI.INSTANCE.getPlugin().getLogger().severe("Error when trying to add " + player.getName() + " with " + playerPerTeam + " to match.");
-                        RandomRushAPI.INSTANCE.getPlugin().getLogger().severe("Maybe match with " + playerPerTeam + " player per team amount not found?");
-                    }
+                if (!successAdded) {
+                    RandomRushAPI.INSTANCE.getPlugin().getLogger().severe("Error when trying to add " + player.getName() + " with " + playersPerTeam + " to match.");
+                    RandomRushAPI.INSTANCE.getPlugin().getLogger().severe("Maybe match with " + playersPerTeam + " player per team amount not found?");
                 }
             }
 
