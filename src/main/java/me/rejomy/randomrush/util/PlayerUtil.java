@@ -19,6 +19,6 @@ public class PlayerUtil {
      */
     public void clearItems(Player player) {
         player.getInventory().clear();
-        player.getInventory().setArmorContents(new ItemStack[]{});
+        player.getInventory().setArmorContents(new ItemStack[4]);
     }
 }

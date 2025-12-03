@@ -20,13 +20,13 @@ import java.util.Arrays;
 public enum RandomRushAPI {
     INSTANCE;
 
-    JavaPlugin plugin;
-    ConfigManager configManager;
-    MatchManager matchManager;
-    ArenaManager arenaManager;
-    WorldManager worldManager;
-    DataBase dataBase;
-    DataManager dataManager = new DataManager();
+    private JavaPlugin plugin;
+    private ConfigManager configManager;
+    private MatchManager matchManager;
+    private ArenaManager arenaManager;
+    private WorldManager worldManager;
+    private DataBase dataBase;
+    private final DataManager dataManager = new DataManager();
 
     void load(JavaPlugin plugin) {
         this.plugin = plugin;

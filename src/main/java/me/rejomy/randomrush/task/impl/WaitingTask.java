@@ -7,13 +7,14 @@ import me.rejomy.randomrush.task.Task;
 import me.rejomy.randomrush.util.PlayerUtil;
 import me.rejomy.randomrush.util.Utils;
 import me.rejomy.randomrush.util.world.Position;
-import org.bukkit.entity.Player;
 
 import java.util.Map;
 
 public class WaitingTask extends Task {
-    private final static int WAITING_DELAY = RandomRushAPI.INSTANCE.getConfigManager().getConfig().getWaitingDelay();
-    int startingDelay = WAITING_DELAY;
+
+    private final int WAITING_DELAY = RandomRushAPI.INSTANCE.getConfigManager().getConfig().getWaitingDelay();
+
+    private int startingDelay = WAITING_DELAY;
 
     public WaitingTask(Match match) {
         super(match);
@@ -22,7 +23,7 @@ public class WaitingTask extends Task {
     }
 
     Runnable bukkitRunnable = () -> {
-        // Cancel this task, because players small than min players for start.
+        // Cancel this task, because players smaller than min players for start.
         if (match.getPlayers().size() < match.getArena().minPlayers) {
             cancelTask();
             return;
@@ -64,7 +65,6 @@ public class WaitingTask extends Task {
 
             match.setTaskID(gameTask.getTaskId());
 
-            // Cancel this task, because waiting is end, we start the match.
             cancelTask();
         } else {
             int lastPercentage = (lastDelay * 100) / WAITING_DELAY;

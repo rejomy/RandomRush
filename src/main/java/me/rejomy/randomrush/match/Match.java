@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import me.rejomy.randomrush.RandomRushAPI;
 import me.rejomy.randomrush.arena.Arena;
+import me.rejomy.randomrush.util.PlayerUtil;
 import me.rejomy.randomrush.util.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -44,7 +45,7 @@ public class Match {
     }
 
     public void removePlayer(MatchPlayer matchPlayer, boolean teleport) {
-        // By default we are not applying effects, inventory items and teleports
+        // By default, we are not applying effects, inventory items and teleports
         // if teleport to map in waiting status is false.
         boolean isTeleportedToMap = !(getStatus() == Status.WAITING &&
                         !RandomRushAPI.INSTANCE.getConfigManager().getConfig().isTeleportToMap());
@@ -66,11 +67,8 @@ public class Match {
             player.setHealth(player.getMaxHealth());
             player.setFoodLevel(20);
             player.setLevel(0);
-            player.getInventory().clear();
-        }
-
-        for (PotionEffect potionEffect : player.getActivePotionEffects()) {
-            player.removePotionEffect(potionEffect.getType());
+            PlayerUtil.clearItems(player);
+            PlayerUtil.clearPotionEffects(player);
         }
 
         if (isTeleportedToMap && teleport)
