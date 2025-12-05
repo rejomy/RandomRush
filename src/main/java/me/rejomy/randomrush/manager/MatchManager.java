@@ -89,7 +89,9 @@ public class MatchManager implements UnLoadable, Loadable {
     public boolean addPlayer(Player player, MatchCondition... conditions) {
         Match findMatch = matches.stream()
                 .filter(match -> match.getStatus() != Match.Status.PLAYING &&
+                        (conditions == null ||
                         Arrays.stream(conditions).allMatch(condition -> condition.apply(match)))
+                )
                 .max(Comparator.comparingInt(match -> match.getPlayers().size()))
                 .orElse(null);
 
